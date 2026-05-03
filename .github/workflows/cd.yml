@@ -2,11 +2,10 @@ name: Kararli Surumu Yayinla
 
 on:
   workflow_run:
-    workflows: ["Python CI Otomasyonu"]
+    workflows: [ "Python CI Otomasyonu" ]
     types:
       - completed
 
-# İŞTE EKSİK OLAN YETKİ KISMI BURASI:
 permissions:
   contents: write
 
