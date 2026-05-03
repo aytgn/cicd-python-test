@@ -6,6 +6,10 @@ on:
     types:
       - completed
 
+# İŞTE EKSİK OLAN YETKİ KISMI BURASI:
+permissions:
+  contents: write
+
 jobs:
   yayinla:
     runs-on: ubuntu-latest
@@ -18,8 +22,8 @@ jobs:
 
       - name: Kararli Dala (Stable) Gonder
         run: |
-          git config --global user.name "GitHub Action"
-          git config --global user.email "action@github.com"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git checkout -b stable || git checkout stable
           git merge main
           git push origin stable --force
