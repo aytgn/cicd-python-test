@@ -1,0 +1,27 @@
+# GitHub Actions panelinde göreceğimiz ana başlık.
+name: Python CI Otomasyonu
+
+# 1. TETİKLEYİCİ (Event): Bu sistem ne zaman uyanıp çalışsın?
+on: 
+  push:
+    branches: [ "main" ] # Sadece 'main' dalına yeni kod fırlattığımızda (push) çalışır.
+
+# 2. GÖREVLER (Jobs): Arka planda yapılacak işlerin listesi.
+jobs:
+  test-et:
+    # SUNUCU (Runner): GitHub bize hangi işletim sistemine sahip, boş bir makine versin?
+    runs-on: ubuntu-latest 
+
+    # 3. ADIMLAR (Steps): Makine açılınca sırayla terminale hangi komutlar girilsin?
+    steps:
+      - name: Kodumuzu Sunucuya İndir
+        uses: actions/checkout@v3 # GitHub'ın kendi yazdığı hazır bir eylemdir. Depodaki kodları bu boş makineye kopyalar.
+
+      - name: Sunucuya Python Kur
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10' # Makinemize uygulamamız için gereken Python ortamını kurar.
+
+      - name: Test Komutumuzu Çalıştır
+        # Tıpkı senin yerelde yaptığın gibi, makinede de bu komutu çalıştırarak testleri başlatır.
+        run: python -m unittest test_calculator.py
