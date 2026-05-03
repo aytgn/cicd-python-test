@@ -1,12 +1,12 @@
 name: Python CI Otomasyonu
 
-on:
+on: 
   push:
     branches: [ "main" ]
 
 jobs:
   test-et:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest 
     steps:
       - name: Kodumuzu Sunucuya İndir
         uses: actions/checkout@v3
@@ -14,7 +14,7 @@ jobs:
       - name: Sunucuya Python Kur
         uses: actions/setup-python@v4
         with:
-          python-version: "3.10"
+          python-version: '3.10'
 
       - name: Test Komutumuzu Çalıştır
         run: python -m unittest test_calculator.py
