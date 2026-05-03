@@ -1,22 +1,25 @@
-name: Python CD Paketleme
+name: Kararli Surumu Yayinla
 
-# 1. TETİKLEYİCİ: Başka bir iş akışını dinle
 on:
   workflow_run:
-    workflows: ["Python CI Otomasyonu"] # ci.yml içindeki 'name' ile BİREBİR aynı olmalı!
+    workflows: ["Python CI Otomasyonu"]
     types:
       - completed
 
 jobs:
-  docker-paketle:
+  yayinla:
     runs-on: ubuntu-latest
-    
-    # 2. GÜVENLİK DUVARI: Sadece CI süreci 'success' (başarılı) olduysa bu makineyi çalıştır!
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    
     steps:
-      - name: Kodumuzu Sunucuya İndir
+      - name: Kodlari Cek
         uses: actions/checkout@v3
+        with:
+          ref: main
 
-      - name: Docker İmajını Oluştur (Build)
-        run: docker build -t aytu-calculator .
+      - name: Kararli Dala (Stable) Gonder
+        run: |
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+          git checkout -b stable || git checkout stable
+          git merge main
+          git push origin stable --force

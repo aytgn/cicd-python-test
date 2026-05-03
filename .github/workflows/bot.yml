@@ -1,0 +1,48 @@
+name: Otonom Matematik Botu
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  issues: write
+
+jobs:
+  hesapla-ve-yanitla:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Kodlari Kararli Daldan Cek
+        uses: actions/checkout@v3
+        with:
+          ref: stable # Kritik: Sadece onaylanmış kodu kullanır
+
+      - name: Python Kur
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Basligi Oku ve Hesapla
+        env:
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python -c "
+          import calculator
+          import os
+          title = os.environ['ISSUE_TITLE']
+          try:
+              op, numbers = title.split(':')
+              s1, s2 = map(float, numbers.split(','))
+              if op.strip() == 'topla': res = calculator.topla(s1, s2)
+              elif op.strip() == 'cikar': res = calculator.cikar(s1, s2)
+              elif op.strip() == 'carp': res = calculator.carp(s1, s2)
+              elif op.strip() == 'bol': res = calculator.bol(s1, s2)
+              else: res = 'Geçersiz işlem!'
+              print(f'SONUC={res}')
+          except Exception:
+              print(f'HATA=Format yanlış! Örnek: topla: 10, 20')
+          " > output.txt
+          
+          RESULT=$(cat output.txt)
+          gh issue comment ${{ github.event.issue.number }} --body "🤖 **Bot Yanıtı:** $RESULT"
+          gh issue close ${{ github.event.issue.number }}
