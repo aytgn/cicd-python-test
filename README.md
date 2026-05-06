@@ -8,6 +8,8 @@ Sistemdeki tüm CI/CD süreci, yerel bilgisayarınızda yaptığınız kod deği
 * **Otomatik Dağıtım:** Sadece testleri başarıyla geçen sağlam kodlar CD iş akışını tetikler. Bu otomasyon, hiçbir insan müdahalesine gerek kalmadan `main` dalındaki o taze kodları alır ve canlı ortamı temsil eden `stable` dalına otomatik olarak birleştirir (`merge`).
 * **Kesintisiz Hizmet:** Bot veya canlı uygulama, geliştirme aşamasındaki riskli kodlara asla bulaşmaz; çalışırken her zaman en son test edilmiş ve onaylanmış olan `stable` dalındaki kodu (`ref: stable` parametresiyle) referans alarak kullanır.
 
+Git Actions sayfasından geçmiş ve güncel aksiyonlar takip edilebilir.
+
 ## Nasıl Kullanılır?
 
 1. Deponun **Issues** sekmesine gidilir.
