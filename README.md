@@ -1,4 +1,4 @@
-# 🤖 Otonom Matematik Botu
+# Otonom Matematik Botu
 Bu proje, GitHub Issue'ları üzerinden çalışan, tamamen sunucusuz (serverless) bir hesap makinesi platformudur.
 
 ## (CI/CD) Süreci
